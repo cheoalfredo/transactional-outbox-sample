@@ -1,0 +1,27 @@
+
+services:
+  sql_server:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql
+    hostname: mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Sa2025*/*
+    ports:
+      - "4433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    restart: always
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq1
+    ports:
+      - "5672:5672"   # Puerto para la comunicación de RabbitMQ
+      - "15672:15672" # Puerto para la interfaz de gestión
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=toor
+    restart: always
+
+volumes:
+  sql_data:
